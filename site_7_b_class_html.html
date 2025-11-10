@@ -1,0 +1,271 @@
+<!-- index.html — финальная версия сайта 7Б класса с улучшенным дизайном и звуком при клике на логотип -->
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>7Б Класс — Современность и вдохновение</title>
+  <style>
+    :root {
+      --bg: #050505;
+      --fg: #fff;
+      --muted: rgba(255,255,255,0.65);
+      --border: rgba(255,255,255,0.08);
+      --blur: 20px;
+      --radius: 20px;
+      --accent1: #7a5cff;
+      --accent2: #00d4ff;
+      --max-width: 1100px;
+      font-family: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; background: var(--bg); color: var(--fg); }
+
+    body {
+      background: radial-gradient(circle at 20% 20%, rgba(122,92,255,0.1), transparent 40%),
+                  radial-gradient(circle at 80% 80%, rgba(0,212,255,0.08), transparent 40%),
+                  linear-gradient(180deg, #050505, #0a0a0a);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 60px 24px;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    header {
+      max-width: var(--max-width);
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 40px;
+      border-radius: var(--radius);
+      backdrop-filter: blur(var(--blur));
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--border);
+      box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+      position: sticky;
+      top: 20px;
+      z-index: 100;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      cursor: pointer;
+      transition: transform .3s;
+    }
+    .logo:hover { transform: scale(1.05); }
+
+    .logo img {
+      width: 50px; height: 50px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+      padding: 6px;
+      backdrop-filter: blur(10px);
+    }
+
+    .logo-text h1 { margin: 0; font-size: 20px; font-weight: 600; }
+    .logo-text p { margin: 2px 0 0 0; font-size: 14px; color: var(--muted); }
+
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+      margin-left: 28px;
+      font-size: 15px;
+      transition: color .3s;
+      position: relative;
+    }
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -6px; left: 0;
+      width: 0%; height: 2px;
+      background: linear-gradient(90deg,var(--accent1),var(--accent2));
+      transition: width .3s;
+    }
+    nav a:hover { color: var(--fg); }
+    nav a:hover::after { width: 100%; }
+
+    .hero {
+      width: 100%;
+      max-width: var(--max-width);
+      margin-top: 60px;
+      border-radius: var(--radius);
+      overflow: hidden;
+      height: 360px;
+      background: url('hero.jpg') center/cover no-repeat;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 60px rgba(0,0,0,0.7);
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(10,10,10,0.6), rgba(0,0,0,0.3));
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      background: rgba(255,255,255,0.06);
+      backdrop-filter: blur(14px);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 40px 60px;
+      text-align: center;
+    }
+
+    .hero-content h1 { font-size: 32px; margin: 0 0 10px 0; }
+    .hero-content p { color: var(--muted); font-size: 16px; margin: 0; }
+
+    main {
+      width: 100%;
+      max-width: var(--max-width);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      margin-top: 80px;
+    }
+
+    section {
+      background: rgba(255,255,255,0.04);
+      backdrop-filter: blur(var(--blur));
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 40px;
+      box-shadow: 0 8px 60px rgba(0,0,0,0.5);
+      transition: transform .4s, box-shadow .4s;
+    }
+    section:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 80px rgba(0,0,0,0.6);
+    }
+
+    section h2 { font-size: 24px; margin-top: 0; }
+    section p { color: var(--muted); line-height: 1.7; font-size: 15px; }
+
+    .gallery {
+      margin-top: 20px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    .gallery img {
+      width: 100%; height: 110px;
+      object-fit: cover;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      transition: transform .3s;
+    }
+    .gallery img:hover { transform: scale(1.05); }
+
+    .news-item {
+      margin-top: 20px;
+      border-top: 1px solid var(--border);
+      padding-top: 16px;
+    }
+    .news-item h3 { margin: 0; font-size: 19px; }
+    .news-item p { margin-top: 8px; }
+
+    footer {
+      margin-top: 100px;
+      color: var(--muted);
+      font-size: 14px;
+      text-align: center;
+      padding-bottom: 40px;
+    }
+
+    @media (max-width: 900px) {
+      main { grid-template-columns: 1fr; }
+      .hero { height: 260px; }
+      .hero-content { padding: 24px; }
+      nav a { margin-left: 18px; font-size: 14px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo" id="logo-sound">
+      <img src="logo.png" alt="7Б">
+      <div class="logo-text">
+        <h1>7Б Класс</h1>
+        <p>Современность. Единство. Креатив.</p>
+      </div>
+    </div>
+    <nav>
+      <a href="#life">Жизнь</a>
+      <a href="#news">Новости</a>
+      <a href="#projects">Проекты</a>
+    </nav>
+  </header>
+
+  <div class="hero">
+    <div class="hero-content">
+      <h1>7Б — команда будущего</h1>
+      <p>Учёба, дружба и творчество в каждом дне</p>
+    </div>
+  </div>
+
+  <main>
+    <section id="life">
+      <h2>Жизнь класса</h2>
+      <p>7Б — это динамичная команда, объединённая общими целями. Мы участвуем в конкурсах, спортивных событиях, культурных проектах и просто наслаждаемся школьной жизнью.</p>
+      <div class="gallery">
+        <img src="photo_01.jpg" alt="Фото 1">
+        <img src="photo_02.jpg" alt="Фото 2">
+        <img src="photo_03.jpg" alt="Фото 3">
+        <img src="photo_04.jpg" alt="Фото 4">
+        <img src="photo_05.jpg" alt="Фото 5">
+        <img src="photo_06.jpg" alt="Фото 6">
+      </div>
+    </section>
+
+    <section id="news">
+      <h2>Новости</h2>
+      <div class="news-item">
+        <h3>Победа на олимпиаде</h3>
+        <p>Ученики 7Б класса заняли первое место в школьной олимпиаде по математике. Мы гордимся каждым участником команды!</p>
+      </div>
+      <div class="news-item">
+        <h3>Выставка талантов</h3>
+        <p>7Б представил свои творческие проекты на фестивале школьного искусства. Участники получили массу положительных отзывов.</p>
+      </div>
+    </section>
+
+    <section id="projects">
+      <h2>Проекты</h2>
+      <p>Наши ключевые направления — «Эко-сад» и «Медиацентр 7Б». Мы внедряем инновации и поддерживаем инициативу каждого ученика.</p>
+      <div class="news-item">
+        <h3>Эко-сад</h3>
+        <p>Мы начали озеленение школьного двора. Работаем над проектом, который делает школу уютнее и экологичнее.</p>
+      </div>
+      <div class="news-item">
+        <h3>Медиацентр 7Б</h3>
+        <p>Команда медиацентра готовит фотоотчёты, видео и новости о нашей жизни. Следите за обновлениями!</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © 7Б Класс, 2025 — Дизайн и идея: ученики 7Б
+  </footer>
+
+  <audio id="click-sound" src="zvuk.mp3" preload="auto"></audio>
+  <script>
+    document.getElementById('logo-sound').addEventListener('click', () => {
+      const sound = document.getElementById('click-sound');
+      sound.currentTime = 0;
+      sound.play();
+    });
+  </script>
+</body>
+</html>
